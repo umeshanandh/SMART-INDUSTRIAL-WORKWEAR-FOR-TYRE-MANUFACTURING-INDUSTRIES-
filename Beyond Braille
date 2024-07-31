@@ -1,0 +1,168 @@
+#define solenoidpin1  2    
+#define solenoidpin2  4
+#define solenoidpin3  5 
+#define solenoidpin4  18 
+#define solenoidpin5  19 
+#define solenoidpin6  21
+char input;
+
+void setup() {            
+  pinMode(solenoidpin1, OUTPUT);
+  pinMode(solenoidpin2, OUTPUT);
+  pinMode(solenoidpin3, OUTPUT);
+  pinMode(solenoidpin4, OUTPUT);
+  pinMode(solenoidpin5, OUTPUT); 
+  pinMode(solenoidpin6, OUTPUT);
+  Serial.begin(9600);
+  delay(1000);  // Add a delay here
+  Serial.println("Enter a word: ");
+}
+
+int output(int solenoid1= -1, int solenoid2 = -1, int solenoid3 = -1, int solenoid4 = -1, int solenoid5 = -1, int solenoid6 = -1) {
+  digitalWrite(solenoidpin1, solenoid1);  
+  digitalWrite(solenoidpin2, solenoid2);  
+  digitalWrite(solenoidpin3, solenoid3);  
+  digitalWrite(solenoidpin4, solenoid4);  
+  digitalWrite(solenoidpin5, solenoid5);  
+  digitalWrite(solenoidpin6, solenoid6);  
+  delay(2000);           
+  digitalWrite(solenoidpin1, LOW); 
+  digitalWrite(solenoidpin2, LOW); 
+  digitalWrite(solenoidpin3, LOW); 
+  digitalWrite(solenoidpin4, LOW); 
+  digitalWrite(solenoidpin5, LOW); 
+  digitalWrite(solenoidpin6, LOW); 
+  delay(2000);   
+  return 0;        
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    String word = Serial.readStringUntil('\n');
+    Serial.println("Received word: " + word);
+    
+    for (char& letter : word) {
+      Serial.println("Displaying letter: " + String(letter));
+      switch (letter) {
+        // Alphabets
+      case 'A': case 'a':
+        output(1,0,0,0,0,0);
+        break;
+      case 'B': case 'b':
+        output(1,0,1,0,0,0);
+        break;
+      case 'C': case 'c':
+        output(1,1,0,0,0,0);
+        break;
+      case 'D': case 'd':
+        output(1,1,0,1,0,0);
+        break;
+      case 'E': case 'e':
+        output(1,0,0,1,0,0);
+        break;
+      case 'F': case 'f':
+        output(1,1,1,0,0,0);
+        break;
+      case 'G': case 'g':
+        output(1,1,1,1,0,0);
+        break;
+      case 'H': case 'h':
+        output(1,0,1,1,0,0);
+        break;
+      case 'I': case 'i':
+        output(0,1,1,0,0,0);
+        break;
+      case 'J': case 'j':
+        output(0,1,1,1,0,0);
+        break;
+      case 'K': case 'k':
+        output(1,0,0,0,1,0);
+        break;
+      case 'L': case 'l':
+        output(1,0,1,0,1,0);
+        break;
+      case 'M': case 'm':
+        output(1,1,0,0,1,0);
+        break;
+      case 'N': case 'n':
+        output(1,1,0,1,1,0);
+        break;
+      case 'O': case 'o':
+        output(1,0,0,1,1,0);
+        break;
+      case 'P': case 'p':
+        output(1,1,1,0,1,0);
+        break;
+      case 'Q': case 'q':
+        output(1,1,1,1,1,0);
+        break;
+      case 'R': case 'r':
+        output(1,0,1,1,1,0);
+        break;
+      case 'S': case 's':
+        output(0,1,1,0,1,0);
+        break;
+      case 'T': case 't':
+        output(0,1,1,1,1,0);
+        break;
+      case 'U': case 'u':
+        output(1,0,0,0,1,1);
+        break;
+      case 'V': case 'v':
+        output(1,0,1,0,1,1);
+        break;
+      case 'W': case 'w':
+        output(0, 1, 1, 0, 1, 1);
+        break;
+      case 'X': case 'x':
+        output(1,1,0,0,1,1);
+        break;
+      case 'Y': case 'y':
+        output(1,1,0,1,1,1);
+        break;
+      case 'Z': case 'z':
+        output(1,0,0,1,1,1);
+        break;
+      // Numbers
+  case '0':
+    output(0,1,1,1,0,0);
+    break;
+  case '1':
+    output(1,0,0,0,0,0);
+    break;
+  case '2':
+    output(1,0,1,0,0,0);
+    break;
+  case '3':
+    output(1,1,0,0,0,0);
+    break;
+  case '4':
+    output(1,1,0,1,0,0);
+    break;
+  case '5':
+    output(1,0,0,1,0,0);
+    break;
+  case '6':
+    output(1,1,1,0,0,0);
+    break;
+  case '7':
+    output(1,1,1,1,0,0);
+    break;
+  case '8':
+    output(1,0,1,1,0,0);
+    break;
+  case '9':
+    output(0,1,1,0,0,0);
+    break;
+  case '#':
+    output(0,0,1,1,1,1);
+    break;
+  default:
+    break;
+      }
+      
+      // Add a delay between letters
+      delay(3000);  // Adjust the delay time as needed
+    }
+  }
+}
